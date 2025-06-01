@@ -1,40 +1,93 @@
-
+// pages/property/[address].js
 import { useRouter } from 'next/router';
 
-export default function PropertyPage() {
+export default function PropertyResults() {
   const router = useRouter();
   const { address } = router.query;
-  const encodedAddress = encodeURIComponent(address || "");
 
-  const zillowURL = `https://www.zillow.com/homes/${encodedAddress}`;
-  const propstreamURL = `https://login.propstream.com/search?address=${encodedAddress}`;
-  const rentcastURL = `https://rentcast.io/search?q=${encodedAddress}`;
-  const spotcrimeURL = `https://spotcrime.com/search?q=${encodedAddress}`;
-  const hudURL = `https://www.huduser.gov/portal/datasets/fmr.html`;
-  const compsURL = `https://app.propstream.com/propertydetails?address=${encodedAddress}`;
+  const encodedAddress = encodeURIComponent(address || '');
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-2">Results for: {decodeURIComponent(address)}</h2>
+    <div className="min-h-screen bg-gray-900 text-white p-8">
+      <h1 className="text-3xl font-bold mb-8">Results for: {address}</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <iframe src={zillowURL} className="w-full h-80 border rounded" title="Zillow"></iframe>
-        <iframe src={rentcastURL} className="w-full h-80 border rounded" title="RentCast"></iframe>
-        <iframe src={spotcrimeURL} className="w-full h-80 border rounded" title="SpotCrime"></iframe>
-
-        <div className="p-4 bg-white border rounded shadow">
-          <h3 className="text-lg font-bold mb-2">HUD Section 8 Rent</h3>
-          <a href={hudURL} target="_blank" className="text-blue-600 underline" rel="noreferrer">View HUD Rent Data</a>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Zillow Market Preview */}
+        <div className="bg-gray-800 p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-2">Market</h2>
+          <a
+            href={`https://www.zillow.com/homes/${encodedAddress}_rb/`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline"
+          >
+            View on Zillow
+          </a>
         </div>
 
-        <div className="p-4 bg-white border rounded shadow">
-          <h3 className="text-lg font-bold mb-2">PropStream</h3>
-          <a href={propstreamURL} target="_blank" className="text-blue-600 underline" rel="noreferrer">Open in PropStream</a>
+        {/* PropStream Mortgage History */}
+        <div className="bg-gray-800 p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-2">Mortgage</h2>
+          <a
+            href={`https://app.propstream.com`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline"
+          >
+            Open in PropStream
+          </a>
         </div>
 
-        <div className="p-4 bg-white border rounded shadow">
-          <h3 className="text-lg font-bold mb-2">Comps (PropStream)</h3>
-          <a href={compsURL} target="_blank" className="text-blue-600 underline" rel="noreferrer">View Nearby Comps</a>
+        {/* RentCast Fair Market Rent */}
+        <div className="bg-gray-800 p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-2">FM Rent</h2>
+          <a
+            href={`https://rentcast.io/`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline"
+          >
+            View RentCast Projections
+          </a>
+        </div>
+
+        {/* HUD Section 8 Rent */}
+        <div className="bg-gray-800 p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-2">Section 8 Rent</h2>
+          <a
+            href="https://www.huduser.gov/portal/datasets/fmr.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline"
+          >
+            View HUD Rent Data
+          </a>
+        </div>
+
+        {/* SpotCrime */}
+        <div className="bg-gray-800 p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-2">Crime</h2>
+          <a
+            href={`https://spotcrime.com/search?q=${encodedAddress}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline"
+          >
+            View Crime Map
+          </a>
+        </div>
+
+        {/* PropStream Comps */}
+        <div className="bg-gray-800 p-4 rounded shadow">
+          <h2 className="text-xl font-semibold mb-2">Comps (PropStream)</h2>
+          <a
+            href={`https://app.propstream.com`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline"
+          >
+            View Nearby Comps
+          </a>
         </div>
       </div>
     </div>

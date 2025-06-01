@@ -1,38 +1,36 @@
 // pages/index.js
-import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const router = useRouter();
-  const [inputAddress, setInputAddress] = useState('');
+  const [address, setAddress] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    if (inputAddress.trim()) {
-      router.push(`/property/${encodeURIComponent(inputAddress.trim())}`);
+    if (address.trim()) {
+      router.push(`/property/${encodeURIComponent(address)}`);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center px-4">
-      <div className="max-w-xl w-full">
-        <h1 className="text-4xl font-bold text-center mb-8">Enter a Property Address</h1>
-        <form onSubmit={handleSubmit} className="flex items-center gap-4">
-          <input
-            type="text"
-            placeholder="123 Main St, Anytown, USA"
-            className="flex-grow px-4 py-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={inputAddress}
-            onChange={(e) => setInputAddress(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded shadow"
-          >
-            Search
-          </button>
-        </form>
-      </div>
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-4">
+      <h1 className="text-4xl font-bold mb-6">Property Insight Dashboard</h1>
+      <form onSubmit={handleSearch} className="w-full max-w-2xl">
+        <input
+          type="text"
+          placeholder="Enter property address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className="w-full p-4 text-lg text-gray-900 rounded mb-4"
+        />
+        <button
+          type="submit"
+          className="w-full p-4 bg-blue-600 text-white text-lg rounded hover:bg-blue-700 transition"
+        >
+          Search
+        </button>
+      </form>
     </div>
   );
 }
